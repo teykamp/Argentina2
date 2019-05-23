@@ -26,6 +26,8 @@
           <argument>
             <kind>1</kind>
             <string>charspeed = 1
+
+dashspeed = 100
 </string>
           </argument>
         </arguments>
@@ -87,6 +89,71 @@ else if keyboard_check(ord("D"))
 
 speed *= 0.75;
 
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Collision
+
+if place_meeting(x + hspeed, y, obColliderParent)
+{
+    while !place_meeting(x + sign(hspeed),y,obColliderParent)
+    {
+        x += sign(hspeed);
+    }
+    hspeed = 0
+}
+
+if place_meeting(x, y + vspeed, obColliderParent)
+{
+    while !place_meeting(x,y + sign(vspeed),obColliderParent)
+    {
+        y += sign(vspeed);
+    }
+    vspeed = 0
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="54">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Dash
+
+
+motion_add(point_direction(x, y, mouse_x, mouse_y), dashspeed)
 </string>
           </argument>
         </arguments>
