@@ -1,0 +1,37 @@
+
+###### Break them down if you want to #######
+
+
+
+
+1 Menu
+2 Inventory
+	2.1 Items
+	2.2 Exchange checkpoints for which ones you can change out at checkpoints
+3 Dash Weapons
+	3.1 Damage ones
+	3.2 Pure Mobility ones
+	3.3 Shroud?
+4 Damage/Resistance System (Damage Types?)
+5 Enemy Types
+	5.1 Ranged
+	5.2 Melee
+	5.3 Boss
+		5.3.1 Stages?
+		5.3.2 Area specific
+		5.3.3 Boss areas?
+6 Terrain
+	6.1 Boss areas?
+	6.2 ART ART ART
+7 Buffs
+	7.1 Healing, gunner and shield drones?
+8 Ranged Guns
+9 Lots of indicators (COLOR and VISUAL) <-- Needs to come after so everything fits together
+10 Most important, make sure it feels smooth, feels good and feels fun
+	10.1 Screen shake but just a tiny bit when you dash or get hit by big enemy/weapon
+11 ARTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTTT
+12 SOUNDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+13 Dialogue/Story
+	13.1 Thanos Meme?
+14 
+15 
