@@ -8,16 +8,28 @@
   <sprites name="sprites">
     <sprite>sprites\spCharacter</sprite>
     <sprite>sprites\spWall</sprite>
+    <sprite>sprites\spBullet</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
   <objects name="objects">
-    <object>objects\obCamera</object>
-    <object>objects\spEntityParent</object>
-    <object>objects\obPlayer</object>
-    <object>objects\obAftershadow</object>
-    <object>objects\obColliderParent</object>
-    <object>objects\obWall</object>
+    <objects name="Controllers">
+      <object>objects\obCamera</object>
+    </objects>
+    <objects name="Entities">
+      <object>objects\spEntityParent</object>
+      <object>objects\obPlayer</object>
+    </objects>
+    <objects name="Particles">
+      <object>objects\obAftershadow</object>
+    </objects>
+    <objects name="Colliders">
+      <object>objects\obColliderParent</object>
+      <object>objects\obWall</object>
+    </objects>
+    <objects name="Projectiles">
+      <object>objects\obBullet</object>
+    </objects>
   </objects>
   <rooms name="rooms">
     <room>rooms\rmTest</room>
