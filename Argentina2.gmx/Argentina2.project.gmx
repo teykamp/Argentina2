@@ -9,6 +9,8 @@
     <sprite>sprites\spCharacter</sprite>
     <sprite>sprites\spWall</sprite>
     <sprite>sprites\spBullet</sprite>
+    <sprite>sprites\spHUD</sprite>
+    <sprite>sprites\spWeaponIcons</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>

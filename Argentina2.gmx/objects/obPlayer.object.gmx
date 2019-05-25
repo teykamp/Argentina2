@@ -25,7 +25,8 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>charspeed = 1;
+            <string>///Variables
+charspeed = 1;
 
 dashspeed = 3;
 instance_create(x,y,obCamera);
@@ -36,7 +37,44 @@ dashY = 0;
 
 //Gun
 weaponCooldown = 0;
-currentWeaponCooldown = 10;
+weaponCooldownMultiplier = 1;
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Inventory
+hotbar = array_create(5);
+stash = array_create(20);
+
+//Starting Gear
+hotbar[0] = 1;
+hotbar[1] = 2;
+hotbar[2] = 0;
+hotbar[3] = 0;
+hotbar[4] = 0;
+
+/*
+Item Codes
+00 Empty
+01 Starting Gun
+02 Starting Blade
+*/
 </string>
           </argument>
         </arguments>
@@ -285,8 +323,14 @@ global.screenshake = 4;
 if weaponCooldown &lt; 0
 {
     dir = point_direction(x,y,mouse_x,mouse_y);
-    action_create_object_motion(obBullet,x + lengthdir_x(24,dir),y + lengthdir_y(24,dir),16,dir);
-    weaponCooldown = currentWeaponCooldown;
+    switch (hotbar[1])
+    {
+        case 1: //Starting Pistol
+        action_create_object_motion(obBullet,x + lengthdir_x(24,dir),y + lengthdir_y(24,dir),16,dir);
+        weaponCooldown = 10 * weaponCooldownMultiplier;
+        break;
+    }
+    
     
     //Screenshake
     global.screenshake = 2;
@@ -295,6 +339,61 @@ if weaponCooldown &lt; 0
         motion_add(point_direction(mouse_x,mouse_y,x,y),8);
     }
 }
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="8" enumb="64">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Inventory
+hotbarWidth = 768
+draw_sprite(spHUD,1,view_wport[0] / 2 - (hotbarWidth / 2),view_hport[0] - 512);
+
+//Slots
+spriteSize = 128;
+draw_sprite(spWeaponIcons,hotbar[0],(view_wport[0] / 2) - 3 * spriteSize,view_hport[0] - spriteSize);
+draw_sprite(spWeaponIcons,hotbar[1],(view_wport[0] / 2) - 2 * spriteSize,view_hport[0] - spriteSize);
+draw_sprite(spWeaponIcons,hotbar[2],(view_wport[0] / 2) - 1 * spriteSize,view_hport[0] - spriteSize);
+draw_sprite(spWeaponIcons,hotbar[3],(view_wport[0] / 2) + 1 * spriteSize,view_hport[0] - spriteSize);
+draw_sprite(spWeaponIcons,hotbar[4],(view_wport[0] / 2) + 2 * spriteSize,view_hport[0] - spriteSize);
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Health and Stamina
+draw_sprite(spHUD,0,0,0);
 </string>
           </argument>
         </arguments>
