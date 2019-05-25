@@ -27,8 +27,9 @@
             <kind>1</kind>
             <string>///Variables
 charspeed = 1;
-
 dashspeed = 3;
+selectionIndex = 0;
+
 instance_create(x,y,obCamera);
 
 //Dash
@@ -38,6 +39,11 @@ dashY = 0;
 //Gun
 weaponCooldown = 0;
 weaponCooldownMultiplier = 1;
+showInventory = false;
+
+//Constants
+spriteSize = 128;
+hotbarWidth = 768
 </string>
           </argument>
         </arguments>
@@ -61,6 +67,7 @@ weaponCooldownMultiplier = 1;
             <string>///Inventory
 hotbar = array_create(5);
 stash = array_create(20);
+holding = 0;
 
 //Starting Gear
 hotbar[0] = 1;
@@ -75,6 +82,9 @@ Item Codes
 01 Starting Gun
 02 Starting Blade
 */
+
+for (var i = 0; i &lt; 20; i ++)
+stash[i] = choose(1,2);
 </string>
           </argument>
         </arguments>
@@ -291,12 +301,65 @@ weaponCooldown -= 1;
           <argument>
             <kind>1</kind>
             <string>///Dash
-motion_add(point_direction(x, y, mouse_x, mouse_y), dashspeed * sqrt(point_distance(x,y,mouse_x,mouse_y) / 2))
+switch (hotbar[1])
+{
+    case 1: //Starting blade
+    motion_add(point_direction(x, y, mouse_x, mouse_y), dashspeed * sqrt(point_distance(x,y,mouse_x,mouse_y) / 2))
+    break;
+}
 dashX = mouse_x;
 dashY = mouse_y;
 
 //Screenshake
 global.screenshake = 4;
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="6" enumb="53">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Inventory
+if showInventory
+{
+    //Stash
+    if abs(window_mouse_get_x() - (view_wport[0] / 2)) &lt; spriteSize * 2.5 &amp;&amp; abs(window_mouse_get_y() - (view_hport[0] / 2)) &lt; spriteSize * 2
+    {
+        mouseCol = floor((window_mouse_get_x() + (1 * spriteSize / 4) - ((view_wport[0] / 2) - (2.5 * spriteSize))) / spriteSize);
+        mouseRow = floor((window_mouse_get_y() - (spriteSize / 4) - ((view_hport[0] / 2) - (2.5 * spriteSize))) / spriteSize);
+        index = mouseRow * 5 + mouseCol;
+        temp = holding;
+        holding = stash[index];
+        stash[index] = temp;
+    }
+    
+    //Hotbar
+    if abs(window_mouse_get_x() - (view_wport[0] / 2)) &lt; spriteSize * 3 &amp;&amp; abs(window_mouse_get_y() - (view_hport[0] - spriteSize)) &lt; spriteSize / 2
+    {
+        index = floor((window_mouse_get_x() + (1 * spriteSize / 4) - ((view_wport[0] / 2) - (3 * spriteSize))) / spriteSize);
+        if index &gt; 1
+        index -= 1;
+        
+        temp = holding;
+        holding = hotbar[index];
+        hotbar[index] = temp;
+    }
+}
 </string>
           </argument>
         </arguments>
@@ -320,7 +383,7 @@ global.screenshake = 4;
           <argument>
             <kind>1</kind>
             <string>///Shoot
-if weaponCooldown &lt; 0
+if !showInventory &amp;&amp; weaponCooldown &lt; 0
 {
     dir = point_direction(x,y,mouse_x,mouse_y);
     switch (hotbar[0])
@@ -361,15 +424,13 @@ if weaponCooldown &lt; 0
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///Inventory
-hotbarWidth = 768
+            <string>///Hotbar
 draw_sprite(spHUD,1,view_wport[0] / 2 - (hotbarWidth / 2),view_hport[0] - 512);
 
 //Slots
-spriteSize = 128;
 draw_sprite(spWeaponIcons,hotbar[0],(view_wport[0] / 2) - 3 * spriteSize,view_hport[0] - spriteSize);
 draw_sprite(spWeaponIcons,hotbar[1],(view_wport[0] / 2) - 2 * spriteSize,view_hport[0] - spriteSize);
-draw_sprite(spWeaponIcons,hotbar[2],(view_wport[0] / 2) - 1 * spriteSize,view_hport[0] - spriteSize);
+draw_sprite(spWeaponIcons,hotbar[2],(view_wport[0] / 2) + 0 * spriteSize,view_hport[0] - spriteSize);
 draw_sprite(spWeaponIcons,hotbar[3],(view_wport[0] / 2) + 1 * spriteSize,view_hport[0] - spriteSize);
 draw_sprite(spWeaponIcons,hotbar[4],(view_wport[0] / 2) + 2 * spriteSize,view_hport[0] - spriteSize);
 </string>
@@ -394,6 +455,104 @@ draw_sprite(spWeaponIcons,hotbar[4],(view_wport[0] / 2) + 2 * spriteSize,view_hp
             <kind>1</kind>
             <string>///Health and Stamina
 draw_sprite(spHUD,0,0,0);
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Inventory
+if showInventory
+for(var row = 0; row &lt; 4; row ++)
+{
+    for(var col = 0; col &lt; 5; col++)
+    {
+        index = 5 * row + col;
+        draw_sprite(spWeaponIcons,stash[index],(view_wport[0] / 2) - (2.5 * spriteSize) + col * spriteSize,(view_hport[0] / 2) - (2 * spriteSize) + row * spriteSize);
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Test
+draw_text(mouse_x,mouse_y,selectionIndex);
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Hand
+draw_sprite(spWeaponIcons,holding,window_mouse_get_x() - 1 * spriteSize / 4,window_mouse_get_y() - 1 * spriteSize / 4);
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="9" enumb="69">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Toggle Inventory
+showInventory = !showInventory;
 </string>
           </argument>
         </arguments>
