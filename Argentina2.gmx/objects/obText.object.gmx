@@ -25,9 +25,11 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>image_alpha -= 0.1;
-if image_alpha &lt; 0
+            <string>life -= 1;
+if life &lt; 0
 instance_destroy();
+
+vspeed += 0.2;
 </string>
           </argument>
         </arguments>
@@ -50,7 +52,7 @@ instance_destroy();
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>draw_sprite_ext(spCharacter,0,x,y,image_alpha,image_alpha,0,c_white,image_alpha);
+            <string>draw_text_colour(x,y,text,c_orange,c_red,c_orange,c_red,life / 100);
 </string>
           </argument>
         </arguments>

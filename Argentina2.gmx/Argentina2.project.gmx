@@ -6,7 +6,10 @@
   <NewExtensions/>
   <sounds name="sound"/>
   <sprites name="sprites">
-    <sprite>sprites\spCharacter</sprite>
+    <sprites name="Entities">
+      <sprite>sprites\spCharacter</sprite>
+      <sprite>sprites\spDummy</sprite>
+    </sprites>
     <sprite>sprites\spWall</sprite>
     <sprite>sprites\spBullet</sprite>
     <sprite>sprites\spHUD</sprite>
@@ -21,9 +24,11 @@
     <objects name="Entities">
       <object>objects\spEntityParent</object>
       <object>objects\obPlayer</object>
+      <object>objects\obTestDummy</object>
     </objects>
     <objects name="Particles">
       <object>objects\obAftershadow</object>
+      <object>objects\obText</object>
     </objects>
     <objects name="Colliders">
       <object>objects\obColliderParent</object>
