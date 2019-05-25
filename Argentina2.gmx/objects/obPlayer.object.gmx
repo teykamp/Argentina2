@@ -303,7 +303,7 @@ weaponCooldown -= 1;
             <string>///Dash
 switch (hotbar[1])
 {
-    case 1: //Starting blade
+    case 2: //Starting blade
     motion_add(point_direction(x, y, mouse_x, mouse_y), dashspeed * sqrt(point_distance(x,y,mouse_x,mouse_y) / 2))
     break;
 }
@@ -485,28 +485,6 @@ for(var row = 0; row &lt; 4; row ++)
         draw_sprite(spWeaponIcons,stash[index],(view_wport[0] / 2) - (2.5 * spriteSize) + col * spriteSize,(view_hport[0] / 2) - (2 * spriteSize) + row * spriteSize);
     }
 }
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///Test
-draw_text(mouse_x,mouse_y,selectionIndex);
 </string>
           </argument>
         </arguments>
