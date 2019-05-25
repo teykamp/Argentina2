@@ -25,9 +25,10 @@
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>charspeed = 1
+            <string>charspeed = 1;
 
-dashspeed = 100
+dashspeed = 50;
+instance_create(x,y,obCamera);
 </string>
           </argument>
         </arguments>
@@ -87,7 +88,7 @@ else if keyboard_check(ord("D"))
     motion_add(0, charspeed)
 }
 
-speed *= 0.75;
+speed *= 0.85;
 
 </string>
           </argument>
@@ -128,6 +129,77 @@ if place_meeting(x, y + vspeed, obColliderParent)
     }
     vspeed = 0
 }
+
+if place_meeting(x + hspeed,y + vspeed, obColliderParent)
+{
+    scanDir = direction;
+    while !place_meeting(x + lengthdir_x(1,scanDir),y + lengthdir_y(1,scanDir),obColliderParent)
+    {
+        x += lengthdir_x(1,scanDir);
+        y += lengthdir_y(1,scanDir);
+    }
+    x -= lengthdir_x(1,scanDir);
+    y -= lengthdir_y(1,scanDir);
+    hspeed = 0;
+    vspeed = 0;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Dash Stop
+if point_distance(x + hspeed,y + vspeed,mouse_x,mouse_y) &lt; speed
+{
+    scanDir = direction;
+    limit = 100;
+    while point_distance(x,y,mouse_x,mouse_y) &gt; 2 and limit and !place_meeting(x,y,obColliderParent)
+    {
+        x += lengthdir_x(1,scanDir);
+        y += lengthdir_y(1,scanDir);
+        limit -= 1;
+    }
+    x -= lengthdir_x(1,scanDir);
+    y -= lengthdir_y(1,scanDir);
+    speed = 0;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Aftershadow
+instance_create(x,y,obAftershadow);
 </string>
           </argument>
         </arguments>
@@ -151,8 +223,6 @@ if place_meeting(x, y + vspeed, obColliderParent)
           <argument>
             <kind>1</kind>
             <string>///Dash
-
-
 motion_add(point_direction(x, y, mouse_x, mouse_y), dashspeed)
 </string>
           </argument>

@@ -12,8 +12,10 @@
   <backgrounds name="background"/>
   <paths name="paths"/>
   <objects name="objects">
+    <object>objects\obCamera</object>
     <object>objects\spEntityParent</object>
     <object>objects\obPlayer</object>
+    <object>objects\obAftershadow</object>
     <object>objects\obColliderParent</object>
     <object>objects\obWall</object>
   </objects>
