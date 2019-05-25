@@ -336,7 +336,7 @@ if weaponCooldown &lt; 0
     global.screenshake = 2;
     with obCamera
     {
-        motion_add(point_direction(mouse_x,mouse_y,x,y),2);
+        motion_add(point_direction(mouse_x,mouse_y,x,y),8);
     }
 }
 </string>
