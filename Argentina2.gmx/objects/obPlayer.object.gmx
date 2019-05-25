@@ -323,7 +323,7 @@ global.screenshake = 4;
 if weaponCooldown &lt; 0
 {
     dir = point_direction(x,y,mouse_x,mouse_y);
-    switch (hotbar[1])
+    switch (hotbar[0])
     {
         case 1: //Starting Pistol
         action_create_object_motion(obBullet,x + lengthdir_x(24,dir),y + lengthdir_y(24,dir),16,dir);
