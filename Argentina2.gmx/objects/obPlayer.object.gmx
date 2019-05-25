@@ -230,6 +230,9 @@ instance_create(x,y,obAftershadow);
 motion_add(point_direction(x, y, mouse_x, mouse_y), dashspeed * sqrt(point_distance(x,y,mouse_x,mouse_y) / 2))
 dashX = mouse_x;
 dashY = mouse_y;
+
+//Screenshake
+global.screenshake = 4;
 </string>
           </argument>
         </arguments>
