@@ -27,8 +27,12 @@
             <kind>1</kind>
             <string>charspeed = 1;
 
-dashspeed = 50;
+dashspeed = 3;
 instance_create(x,y,obCamera);
+
+//Dash
+dashX = 0;
+dashY = 0;
 </string>
           </argument>
         </arguments>
@@ -111,7 +115,7 @@ speed *= 0.85;
           <argument>
             <kind>1</kind>
             <string>///Collision
-
+//Horizontal
 if place_meeting(x + hspeed, y, obColliderParent)
 {
     while !place_meeting(x + sign(hspeed),y,obColliderParent)
@@ -120,7 +124,7 @@ if place_meeting(x + hspeed, y, obColliderParent)
     }
     hspeed = 0
 }
-
+//Vertical
 if place_meeting(x, y + vspeed, obColliderParent)
 {
     while !place_meeting(x,y + sign(vspeed),obColliderParent)
@@ -129,7 +133,7 @@ if place_meeting(x, y + vspeed, obColliderParent)
     }
     vspeed = 0
 }
-
+//Both
 if place_meeting(x + hspeed,y + vspeed, obColliderParent)
 {
     scanDir = direction;
@@ -164,11 +168,11 @@ if place_meeting(x + hspeed,y + vspeed, obColliderParent)
           <argument>
             <kind>1</kind>
             <string>///Dash Stop
-if point_distance(x + hspeed,y + vspeed,mouse_x,mouse_y) &lt; speed
+if point_distance(x + hspeed,y + vspeed,dashX,dashY) &lt; speed
 {
     scanDir = direction;
-    limit = 100;
-    while point_distance(x,y,mouse_x,mouse_y) &gt; 2 and limit and !place_meeting(x,y,obColliderParent)
+    limit = point_distance(x,y,dashX,dashY);
+    while point_distance(x,y,dashX,dashY) &gt; 2 and limit and !place_meeting(x,y,obColliderParent)
     {
         x += lengthdir_x(1,scanDir);
         y += lengthdir_y(1,scanDir);
@@ -223,7 +227,9 @@ instance_create(x,y,obAftershadow);
           <argument>
             <kind>1</kind>
             <string>///Dash
-motion_add(point_direction(x, y, mouse_x, mouse_y), dashspeed)
+motion_add(point_direction(x, y, mouse_x, mouse_y), dashspeed * sqrt(point_distance(x,y,mouse_x,mouse_y) / 2))
+dashX = mouse_x;
+dashY = mouse_y;
 </string>
           </argument>
         </arguments>
