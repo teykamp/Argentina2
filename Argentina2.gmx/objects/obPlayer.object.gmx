@@ -33,6 +33,10 @@ instance_create(x,y,obCamera);
 //Dash
 dashX = 0;
 dashY = 0;
+
+//Gun
+weaponCooldown = 0;
+currentWeaponCooldown = 10;
 </string>
           </argument>
         </arguments>
@@ -208,6 +212,28 @@ instance_create(x,y,obAftershadow);
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Gun Cooldown
+weaponCooldown -= 1;
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="6" enumb="54">
       <action>
@@ -238,7 +264,7 @@ global.screenshake = 4;
         </arguments>
       </action>
     </event>
-    <event eventtype="6" enumb="53">
+    <event eventtype="6" enumb="50">
       <action>
         <libid>1</libid>
         <id>603</id>
@@ -256,14 +282,18 @@ global.screenshake = 4;
           <argument>
             <kind>1</kind>
             <string>///Shoot
-dir = point_direction(x,y,mouse_x,mouse_y);
-action_create_object_motion(obBullet,x + lengthdir_x(24,dir),y + lengthdir_y(24,dir),16,dir);
-
-//Screenshake
-global.screenshake = 2;
-with obCamera
+if weaponCooldown &lt; 0
 {
-    motion_add(point_direction(mouse_x,mouse_y,x,y),10);
+    dir = point_direction(x,y,mouse_x,mouse_y);
+    action_create_object_motion(obBullet,x + lengthdir_x(24,dir),y + lengthdir_y(24,dir),16,dir);
+    weaponCooldown = currentWeaponCooldown;
+    
+    //Screenshake
+    global.screenshake = 2;
+    with obCamera
+    {
+        motion_add(point_direction(mouse_x,mouse_y,x,y),8);
+    }
 }
 </string>
           </argument>
