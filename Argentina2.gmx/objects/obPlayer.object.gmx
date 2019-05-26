@@ -29,6 +29,7 @@
 charspeed = 1;
 dashspeed = 3;
 selectionIndex = 0;
+index = 0;
 
 instance_create(x,y,obCamera);
 
@@ -283,6 +284,22 @@ weaponCooldown -= 1;
         </arguments>
       </action>
     </event>
+    <event eventtype="5" enumb="27">
+      <action>
+        <libid>1</libid>
+        <id>332</id>
+        <kind>0</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>0</useapplyto>
+        <exetype>1</exetype>
+        <functionname>action_end_game</functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+      </action>
+    </event>
     <event eventtype="6" enumb="54">
       <action>
         <libid>1</libid>
@@ -339,8 +356,8 @@ if showInventory
     //Stash
     if abs(window_mouse_get_x() - (view_wport[0] / 2)) &lt; spriteSize * 2.5 &amp;&amp; abs(window_mouse_get_y() - (view_hport[0] / 2)) &lt; spriteSize * 2
     {
-        mouseCol = floor((window_mouse_get_x() + (1 * spriteSize / 4) - ((view_wport[0] / 2) - (2.5 * spriteSize))) / spriteSize);
-        mouseRow = floor((window_mouse_get_y() - (spriteSize / 4) - ((view_hport[0] / 2) - (2.5 * spriteSize))) / spriteSize);
+        mouseCol = floor((window_mouse_get_x() - ((view_wport[0] / 2) - (2.5 * spriteSize))) / spriteSize);
+        mouseRow = floor((window_mouse_get_y() - (spriteSize / 2) - ((view_hport[0] / 2) - (2.5 * spriteSize))) / spriteSize);
         index = mouseRow * 5 + mouseCol;
         temp = holding;
         holding = stash[index];
@@ -348,9 +365,9 @@ if showInventory
     }
     
     //Hotbar
-    if abs(window_mouse_get_x() - (view_wport[0] / 2)) &lt; spriteSize * 3 &amp;&amp; abs(window_mouse_get_y() - (view_hport[0] - spriteSize)) &lt; spriteSize / 2
+    if abs(window_mouse_get_x() - (view_wport[0] / 2)) &lt; spriteSize * 3 &amp;&amp; abs(window_mouse_get_y() - (view_hport[0] - spriteSize / 2)) &lt; spriteSize / 2
     {
-        index = floor((window_mouse_get_x() + (1 * spriteSize / 4) - ((view_wport[0] / 2) - (3 * spriteSize))) / spriteSize);
+        index = floor((window_mouse_get_x()  - ((view_wport[0] / 2) - (3 * spriteSize))) / spriteSize);
         if index &gt; 1
         index -= 1;
         
@@ -482,6 +499,10 @@ for(var row = 0; row &lt; 4; row ++)
         draw_sprite(spWeaponIcons,stash[index],(view_wport[0] / 2) - (2.5 * spriteSize) + col * spriteSize,(view_hport[0] / 2) - (2 * spriteSize) + row * spriteSize);
     }
 }
+
+///Test
+draw_line(view_wport[0] / 2 - 3 * spriteSize,800,view_wport[0] / 2 + 3 * spriteSize,800);
+draw_text(64,64,floor((window_mouse_get_x() - ((view_wport[0] / 2) - (3 * spriteSize))) / spriteSize));
 </string>
           </argument>
         </arguments>
@@ -503,7 +524,7 @@ for(var row = 0; row &lt; 4; row ++)
           <argument>
             <kind>1</kind>
             <string>///Hand
-draw_sprite(spWeaponIcons,holding,window_mouse_get_x() - 1 * spriteSize / 4,window_mouse_get_y() - 1 * spriteSize / 4);
+draw_sprite(spWeaponIcons,holding,window_mouse_get_x() - 1 * spriteSize / 2,window_mouse_get_y() - 1 * spriteSize / 2);
 </string>
           </argument>
         </arguments>
