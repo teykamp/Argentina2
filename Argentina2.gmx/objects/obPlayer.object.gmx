@@ -283,6 +283,67 @@ weaponCooldown -= 1;
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Close Inventory
+if showInventory and instance_exists(obSave)
+{
+    save = instance_nearest(x,y,obSave);
+    if point_distance(x,y,obSave.x,obSave.y) &gt; 64
+    showInventory = false;
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
+    <event eventtype="4" ename="obItem">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>if !other.cooldown
+{
+    for(var i = 0; i &lt; 20; i ++)
+    {
+        if stash[i] == 0
+        {
+            stash[i] = other.index;
+            with other instance_destroy();
+            break;
+        }
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="5" enumb="27">
       <action>
@@ -530,6 +591,59 @@ draw_sprite(spWeaponIcons,holding,window_mouse_get_x() - 1 * spriteSize / 2,wind
         </arguments>
       </action>
     </event>
+    <event eventtype="9" enumb="81">
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Inventory
+if showInventory
+{
+    //Stash
+    if abs(window_mouse_get_x() - (view_wport[0] / 2)) &lt; spriteSize * 2.5 &amp;&amp; abs(window_mouse_get_y() - (view_hport[0] / 2)) &lt; spriteSize * 2
+    {
+        mouseCol = floor((window_mouse_get_x() - ((view_wport[0] / 2) - (2.5 * spriteSize))) / spriteSize);
+        mouseRow = floor((window_mouse_get_y() - (spriteSize / 2) - ((view_hport[0] / 2) - (2.5 * spriteSize))) / spriteSize);
+        index = mouseRow * 5 + mouseCol;
+        i = instance_create(x,y,obItem);
+        i.direction = random(360);
+        i.speed = 3;
+        i.index = stash[index];
+        i.cooldown = 60;
+        stash[index] = 0;
+    }
+    
+    //Hotbar
+    if abs(window_mouse_get_x() - (view_wport[0] / 2)) &lt; spriteSize * 3 &amp;&amp; abs(window_mouse_get_y() - (view_hport[0] - spriteSize / 2)) &lt; spriteSize / 2
+    {
+        index = floor((window_mouse_get_x()  - ((view_wport[0] / 2) - (3 * spriteSize))) / spriteSize);
+        if index &gt; 1
+        index -= 1;
+        i = instance_create(x,y,obItem);
+        i.direction = random(360);
+        i.speed = 3;
+        i.index = hotbar[index];
+        i.cooldown = 60;
+        hotbar[index] = 0;
+    }
+}
+</string>
+          </argument>
+        </arguments>
+      </action>
+    </event>
     <event eventtype="9" enumb="69">
       <action>
         <libid>1</libid>
@@ -548,7 +662,27 @@ draw_sprite(spWeaponIcons,holding,window_mouse_get_x() - 1 * spriteSize / 2,wind
           <argument>
             <kind>1</kind>
             <string>///Toggle Inventory
-showInventory = !showInventory;
+if instance_exists(obSave) and !showInventory
+{
+    save = instance_nearest(x,y,obSave);
+    if point_distance(x,y,obSave.x,obSave.y) &lt; 64
+    {
+        showInventory = true;
+        if holding != 0
+        {
+            i = instance_create(x,y,obItem);
+            i.direction = random(360);
+            i.speed = 3;
+            i.index = holding;
+            i.cooldown = 60;
+            holding = 0;
+        }
+    }
+}
+else
+{
+    showInventory = false;
+}
 </string>
           </argument>
         </arguments>

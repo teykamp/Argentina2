@@ -14,6 +14,7 @@
     <sprite>sprites\spBullet</sprite>
     <sprite>sprites\spHUD</sprite>
     <sprite>sprites\spWeaponIcons</sprite>
+    <sprite>sprites\spSave</sprite>
   </sprites>
   <backgrounds name="background"/>
   <paths name="paths"/>
@@ -33,9 +34,11 @@
     <objects name="Colliders">
       <object>objects\obColliderParent</object>
       <object>objects\obWall</object>
+      <object>objects\obSave</object>
     </objects>
     <objects name="Projectiles">
       <object>objects\obBullet</object>
+      <object>objects\obItem</object>
     </objects>
   </objects>
   <rooms name="rooms">
