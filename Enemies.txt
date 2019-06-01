@@ -1,0 +1,10 @@
+####### List of enemies 
+
+Ground Pound: Big Golem (Large Hitbox) that creates a circle around it ith every attack, and he circle has gaps in it for the player to go through so they dont get hit. 
+Spray: A Medium unit shoots out a cone of rojectiles which could slow or damage depending on what we feel like
+Tracking Lazer: Shoots in your direction and follows you, but you can dodge by running in circles around the enemy
+Tornado Knockback
+Cliff Makers: Makes walls so you become traped. Walls dissappear after 5 seconds
+Gyzers of fire appear from the ground in marked spots
+Projectile attacks that need to be dashed through to kill the boss
+Blocking attacks that can block dashes and/or projectiles
