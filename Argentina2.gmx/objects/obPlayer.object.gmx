@@ -26,16 +26,19 @@
           <argument>
             <kind>1</kind>
             <string>///Variables
-charspeed = 1;
-dashspeed = 3;
+movespeed = 0.25;
+dashspeed = 1;
+jumpspeed = 6;
 selectionIndex = 0;
 index = 0;
+grounded = 0;
 
 instance_create(x,y,obCamera);
 
 //Dash
 dashX = 0;
 dashY = 0;
+dashCooldown = 180;
 
 //Gun
 weaponCooldown = 0;
@@ -109,43 +112,48 @@ stash[i] = choose(1,2);
           <argument>
             <kind>1</kind>
             <string>/// Movement
+grounded = 0;
+if (position_meeting(x - 15,y + 16,obWall) or position_meeting(x + 15,y + 16,obWall))
+    grounded = 1;
+    
+hmove = keyboard_check(ord("D")) - keyboard_check(ord("A"));
+vmove = keyboard_check(ord("S")) - keyboard_check(ord("W"));
 
-if keyboard_check(ord("W"))
+if abs(hmove) + abs(vmove) &gt; 1
 {
-    if keyboard_check(ord("A"))
-    {
-        motion_add(135, charspeed);
-    }
-    else if keyboard_check(ord("D"))
-    {
-        motion_add(45, charspeed);            
-    }
-    else
-    motion_add(90, charspeed); 
-}
-else if keyboard_check(ord("S"))
-{
-    if keyboard_check(ord("A"))
-    {
-        motion_add(225, charspeed);
-    }
-    else if keyboard_check(ord("D"))
-    {
-        motion_add(315, charspeed);
-    }
-    else
-    motion_add(270, charspeed);
-}
-else if keyboard_check(ord("A"))
-{
-    motion_add(180, charspeed)
-}
-else if keyboard_check(ord("D"))
-{
-    motion_add(0, charspeed)
+    hmove *= 0.71;
+    vmove *= 0.71;
 }
 
-speed *= 0.85;
+if !grounded
+hmove /= 2;
+
+hspeed += hmove * movespeed;
+vspeed += vmove * movespeed;
+
+if keyboard_check(vk_space)
+{
+    if grounded
+    {
+        vspeed -= jumpspeed;
+    }
+    else
+    {
+        if position_meeting(x - 16,y - 16,obWall) or position_meeting(x - 16,y + 16,obWall)
+        {
+            vspeed -= jumpspeed * 0.71;
+            hspeed += jumpspeed * 0.71;
+        }
+        if position_meeting(x + 1,y - 16,obWall) or position_meeting(x + 16,y + 16,obWall)
+        {
+            vspeed -= jumpspeed * 0.71;
+            hspeed -= jumpspeed * 0.71;
+        }
+    }
+}
+speed *= 0.99;
+
+vspeed += 0.2;
 
 </string>
           </argument>
@@ -310,6 +318,28 @@ if showInventory and instance_exists(obSave)
           </argument>
         </arguments>
       </action>
+      <action>
+        <libid>1</libid>
+        <id>603</id>
+        <kind>7</kind>
+        <userelative>0</userelative>
+        <isquestion>0</isquestion>
+        <useapplyto>-1</useapplyto>
+        <exetype>2</exetype>
+        <functionname></functionname>
+        <codestring></codestring>
+        <whoName>self</whoName>
+        <relative>0</relative>
+        <isnot>0</isnot>
+        <arguments>
+          <argument>
+            <kind>1</kind>
+            <string>///Dash Cooldown
+dashCooldown -= 1;
+</string>
+          </argument>
+        </arguments>
+      </action>
     </event>
     <event eventtype="4" ename="obItem">
       <action>
@@ -379,16 +409,20 @@ if showInventory and instance_exists(obSave)
           <argument>
             <kind>1</kind>
             <string>///Dash
-switch (hotbar[1])
+if !dashCooldown
 {
-    case 2: //Starting blade
-    motion_add(point_direction(x, y, mouse_x, mouse_y), dashspeed * sqrt(point_distance(x,y,mouse_x,mouse_y) / 2))
-    //Screenshake
-    global.screenshake = 4;
-    break;
+    switch (hotbar[1])
+    {
+        case 2: //Starting blade
+        motion_add(point_direction(x, y, mouse_x, mouse_y), dashspeed * sqrt(point_distance(x,y,mouse_x,mouse_y) / 2))
+        //Screenshake
+        global.screenshake = 4;
+        break;
+    }
+    dashX = mouse_x;
+    dashY = mouse_y;
+    dashCooldown = 180;
 }
-dashX = mouse_x;
-dashY = mouse_y;
 </string>
           </argument>
         </arguments>
