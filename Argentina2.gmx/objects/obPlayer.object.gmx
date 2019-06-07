@@ -46,6 +46,12 @@ showInventory = false;
 //Constants
 spriteSize = 128;
 hotbarWidth = 768
+
+// Depth
+depth = -999
+
+
+
 </string>
           </argument>
         </arguments>
@@ -305,29 +311,6 @@ if showInventory and instance_exists(obSave)
             <kind>1</kind>
             <string>///Dash Cooldown
 dashCooldown -= 1;
-</string>
-          </argument>
-        </arguments>
-      </action>
-      <action>
-        <libid>1</libid>
-        <id>603</id>
-        <kind>7</kind>
-        <userelative>0</userelative>
-        <isquestion>0</isquestion>
-        <useapplyto>-1</useapplyto>
-        <exetype>2</exetype>
-        <functionname></functionname>
-        <codestring></codestring>
-        <whoName>self</whoName>
-        <relative>0</relative>
-        <isnot>0</isnot>
-        <arguments>
-          <argument>
-            <kind>1</kind>
-            <string>///update image index for backgound
-image_index = selected;
-
 </string>
           </argument>
         </arguments>
@@ -634,9 +617,84 @@ draw_sprite(spWeaponIcons,holding,window_mouse_get_x() - 1 * spriteSize / 2,wind
         <arguments>
           <argument>
             <kind>1</kind>
-            <string>///draw outline
+            <string>///outline
+thickness = 1
 
-selected = true;
+
+draw_sprite_ext(sprite_index,//sprite
+0,//sub img
+x + thickness,//x pos
+y - thickness,//y pos
+image_xscale, image_yscale,//scale
+image_angle,//angle
+c_black,//col
+image_alpha);//alpha
+
+draw_sprite_ext(sprite_index,//sprite
+0,//sub img
+x + thickness ,//x pos
+y - thickness,//y pos
+image_xscale, image_yscale,//scale
+image_angle,//angle
+c_black,//col
+image_alpha);//alpha
+
+draw_sprite_ext(sprite_index,//sprite
+0,//sub img
+x - thickness,//x pos
+y + thickness,//y pos
+image_xscale, image_yscale,//scale
+image_angle,//angle
+c_black,//col
+image_alpha);//alpha
+
+draw_sprite_ext(sprite_index,//sprite
+0,//sub img
+x +  - thickness,//x pos
+y - thickness,//y pos
+image_xscale, image_yscale,//scale
+image_angle,//angle
+c_black,//col
+image_alpha);//alpha
+
+
+draw_sprite_ext(sprite_index,//sprite
+0,//sub img
+x - thickness,//x pos
+y,//y pos
+image_xscale, image_yscale,//scale
+image_angle,//angle
+c_black,//col
+image_alpha);//alpha
+
+draw_sprite_ext(sprite_index,//sprite
+0,//sub img
+x,//x pos
+y + thickness,//y pos
+image_xscale, image_yscale,//scale
+image_angle,//angle
+c_black,//col
+image_alpha);//alpha
+
+draw_sprite_ext(sprite_index,//sprite
+0,//sub img
+x - thickness,//x pos
+y,//y pos
+image_xscale, image_yscale,//scale
+image_angle,//angle
+c_black,//col
+image_alpha);//alpha
+
+draw_sprite_ext(sprite_index,//sprite
+0,//sub img
+x,//x pos
+y - thickness,//y pos
+image_xscale, image_yscale,//scale
+image_angle,//angle
+c_black,//col
+image_alpha);//alpha
+
+draw_self();
 </string>
           </argument>
         </arguments>

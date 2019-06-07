@@ -27,8 +27,8 @@
     </objects>
     <objects name="Entities">
       <object>objects\spEntityParent</object>
-      <object>objects\obPlayer</object>
       <object>objects\obTestDummy</object>
+      <object>objects\obPlayer</object>
     </objects>
     <objects name="Particles">
       <object>objects\obAftershadow</object>

@@ -19,13 +19,28 @@ void main()
 }
 
 //######################_==_YOYO_SHADER_MARKER_==_######################@~//
-// Simple passthrough fragment shader
+// Sprite outline shader
 //
 varying vec2 v_vTexcoord;
 varying vec4 v_vColour;
+uniform float outlineH;
+uniform float outlineW;
+uniform vec4 outlineColor; 
 
 void main()
 {
-    gl_FragColor = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
-}
+  vec2 offsetx;
+  offsetx.x = outlineW;
+  vec2 offsety;
+  offsety.y = outlineH;
 
+  float alpha = texture2D( gm_BaseTexture, v_vTexcoord ).a;
+
+  alpha = ceil(texture2D( gm_BaseTexture, v_vTexcoord + offsetx).a);
+  alpha = ceil(texture2D( gm_BaseTexture, v_vTexcoord - offsetx).a);
+  alpha = ceil(texture2D( gm_BaseTexture, v_vTexcoord + offsety).a);
+  alpha = ceil(texture2D( gm_BaseTexture, v_vTexcoord - offsety).a);
+
+  gl_FragColor = v_vColour * texture2D( gm_BaseTexture, v_vTexcoord );
+  gl_FragColor.a = alpha;
+}

@@ -36,3 +36,8 @@
 	13.1 Thanos Meme?
 14 Zed Ability (Teleport)
 15 Cround Pound Circle (Super Mario Galaxy Bowser Final but faster)
+15: Shaders for: - https://www.youtube.com/watch?v=oK3R2aMq9tM
+	15.1 Outline - https://www.youtube.com/watch?v=oK3R2aMq9tM
+	15.2 silluhuette for when you go behind a wall or under an arch - https://www.yoyogames.com/blog/382/silhouettes
+	15.3 Water reflection - https://www.youtube.com/watch?v=_jcc2JOU_fE
+	15.4 Hit flash for damage -- https://www.youtube.com/watch?v=9H_azpWOG4o
