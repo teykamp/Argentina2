@@ -26,12 +26,10 @@
           <argument>
             <kind>1</kind>
             <string>///Variables
-movespeed = 0.25;
-dashspeed = 1;
-jumpspeed = 6;
+movespeed = 1;
+dashspeed = 3;
 selectionIndex = 0;
 index = 0;
-grounded = 0;
 
 instance_create(x,y,obCamera);
 
@@ -112,10 +110,6 @@ stash[i] = choose(1,2);
           <argument>
             <kind>1</kind>
             <string>/// Movement
-grounded = 0;
-if (position_meeting(x - 15,y + 16,obWall) or position_meeting(x + 15,y + 16,obWall))
-    grounded = 1;
-    
 hmove = keyboard_check(ord("D")) - keyboard_check(ord("A"));
 vmove = keyboard_check(ord("S")) - keyboard_check(ord("W"));
 
@@ -125,36 +119,11 @@ if abs(hmove) + abs(vmove) &gt; 1
     vmove *= 0.71;
 }
 
-if !grounded
-hmove /= 2;
 
 hspeed += hmove * movespeed;
 vspeed += vmove * movespeed;
 
-if keyboard_check(vk_space)
-{
-    if grounded
-    {
-        vspeed -= jumpspeed;
-    }
-    else
-    {
-        if position_meeting(x - 16,y - 16,obWall) or position_meeting(x - 16,y + 16,obWall)
-        {
-            vspeed -= jumpspeed * 0.71;
-            hspeed += jumpspeed * 0.71;
-        }
-        if position_meeting(x + 1,y - 16,obWall) or position_meeting(x + 16,y + 16,obWall)
-        {
-            vspeed -= jumpspeed * 0.71;
-            hspeed -= jumpspeed * 0.71;
-        }
-    }
-}
-speed *= 0.99;
-
-vspeed += 0.2;
-
+speed *= 0.8;
 </string>
           </argument>
         </arguments>
