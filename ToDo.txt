@@ -41,3 +41,5 @@
 	15.2 silluhuette for when you go behind a wall or under an arch - https://www.yoyogames.com/blog/382/silhouettes
 	15.3 Water reflection - https://www.youtube.com/watch?v=_jcc2JOU_fE
 	15.4 Hit flash for damage -- https://www.youtube.com/watch?v=9H_azpWOG4o
+	15.5: Bloom Shaders (lava) -- https://www.youtube.com/watch?v=qbIkMMFxX3g
+16: Perspective: The character is insanely small, the surroundings are huge. The parallax could be acheived through bridges with the base being very far away
